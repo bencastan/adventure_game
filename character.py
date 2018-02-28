@@ -1,4 +1,5 @@
 class Character:
+    enemy_count = 0
 
     # Create a character
     def __init__(self, char_name, char_description):
@@ -41,6 +42,7 @@ class Enemy(Character):
     def fight(self, combat_item):
         if combat_item == self.weakness:
             print("You fend " + self.name + " off with the " + combat_item)
+            Character.enemy_count += 1
             return True
         else:
             print(self.name + " crushes you, puny adventurer")

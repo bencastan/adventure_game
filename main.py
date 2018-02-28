@@ -7,9 +7,6 @@ backpack = []
 kitchen = Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")
 
-kitchen.get_description()
-# kitchen.describe()
-
 dining_hall = Room("Dining Hall")
 dining_hall.set_description("A large room with ornate golden decorations on each wall.")
 
@@ -36,16 +33,6 @@ tennis = Item("tennis")
 tennis.set_description("A furry greeinsh round thing")
 dining_hall.set_item(tennis)
 
-# dining_hall.get_details()
-# print("")
-# kitchen.get_details()
-# print("")
-# ballroom.get_details()
-
-dead = False
-current_room = kitchen
-current_item = sword
-
 dave = Enemy("Dave", "A smelly zombie")
 dave.set_conversation("I eat your brains")
 dave.set_weakness("cheese")
@@ -61,7 +48,11 @@ claire.set_conversation("Come and give me a great big hug")
 claire.set_strength("bff")
 ballroom.set_character(claire)
 
-while not dead:
+dead = False
+current_room = kitchen
+current_item = sword
+
+while not dead and Enemy.enemy_count <= 1:
     print("\n")
     # Print out the room details
     current_room.get_details()
@@ -93,7 +84,6 @@ while not dead:
         print("What is your weapon of choice ?:")
         fight_with = input(">").lower()
         if fight_with in backpack:
-            print("umm")
             if not inhabitant.fight(fight_with):
                 dead = True
         else:
@@ -112,15 +102,7 @@ while not dead:
             current_room.take_item(item)
             backpack.append(item.get_name())
 
-
-
-    # elif command == "fight":
-    #	fight_with = input("What will you fight wit?: ")
-	#	if self.fight(fight_with) == True:
-	#		print("You win")
-	#	else:
-	#		print("You are now dead")
-	#		break
-
-	# current_room = current_room.move(command)
-	# dave.talk()
+    elif command == "backpack":
+        print("You have in your backpack: ")
+        for item in backpack:
+            print(item)
