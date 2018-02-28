@@ -2,6 +2,8 @@ from room import Room
 from item import Item
 from character import Enemy, Friend
 
+backpack = []
+
 kitchen = Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")
 
@@ -21,6 +23,14 @@ kitchen.link_room(dining_hall, "south")
 ballroom.link_room(dining_hall, "east")
 dining_hall.link_room(kitchen, "north")
 dining_hall.link_room(ballroom, "west")
+
+cheese = Item("cheese")
+cheese.set_description("A stinky block of cheese")
+kitchen.set_item(cheese)
+
+tiara = Item("tirara")
+tiara.set_description("A shiny head piece suitable for a princess")
+ballroom.set_item(tiara)
 
 # dining_hall.get_details()
 # print("")
@@ -49,14 +59,21 @@ ballroom.set_character(claire)
 
 while not dead:
     print("\n")
+    # Print out the room details
     current_room.get_details()
+    # Print out the item/s in the room
     current_item.get_details()
     inhabitant = current_room.get_character()
     if inhabitant is not None:
         inhabitant.describe()
+    item = current_room.get_item()
+    if item is not None:
+        item.describe()
+    # Move to another room
     command = input(">")
     if command in ("north", "south", "east", "west"):
         current_room = current_room.move(command)
+    # Talk to the inhabitant if they exist in the room
     elif command == "talk":
         inhabitant = current_room.get_character()
         if inhabitant is not None:

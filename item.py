@@ -18,3 +18,6 @@ class Item():
 
     def get_details(self):
         print("You have a {} which is {}".format(self.get_name(), self.get_description()))
+
+    def describe(self):
+        print("The [" + self.name + "] is here - " + self.description)
