@@ -28,11 +28,13 @@ class Room():
         return self.item
 
     def take_item(self, item):
-        # have to take the item is if exists and add to backpack
+        # have to take the item is if exists and add to backpack\
+        # And remove it from the room
         if item == self.item:
-            return self.item
-            # have to remove the item from the room
             self.item = None
+            return True
+        else:
+            return False
 
     def link_room(self, room_to_link, direction):
         self.linked_rooms[direction] = room_to_link

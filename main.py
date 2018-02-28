@@ -32,6 +32,10 @@ tiara = Item("tirara")
 tiara.set_description("A shiny head piece suitable for a princess")
 ballroom.set_item(tiara)
 
+tennis = Item("tennis")
+tennis.set_description("A furry greeinsh round thing")
+dining_hall.set_item(tennis)
+
 # dining_hall.get_details()
 # print("")
 # kitchen.get_details()
@@ -88,8 +92,12 @@ while not dead:
     elif command == "fight":
         print("What is your weapon of choice ?:")
         fight_with = input(">").lower()
-        if not inhabitant.fight(fight_with):
-            dead = True
+        if fight_with in backpack:
+            print("umm")
+            if not inhabitant.fight(fight_with):
+                dead = True
+        else:
+            print("You don't have {} in your backpack".format(fight_with))
 
     elif command == "hug":
         if isinstance(inhabitant, Friend):
@@ -97,6 +105,13 @@ while not dead:
             inhabitant.hug(strength)
         elif isinstance(inhabitant, Enemy):
             print(inhabitant.get_name() + " Is a fighter, not a hugger! ")
+
+    elif command == "take":
+        item = current_room.get_item()
+        if item is not None:
+            current_room.take_item(item)
+            backpack.append(item.get_name())
+
 
 
     # elif command == "fight":
