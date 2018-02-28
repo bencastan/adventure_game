@@ -3,6 +3,7 @@ class Room():
         self.name = room_name
         self.description = None
         self.linked_rooms = {}
+        self.character = None
 
     def set_description(self, room_description):
         self.description = room_description
@@ -30,6 +31,13 @@ class Room():
         for direction in self.linked_rooms:
             room = self.linked_rooms[direction]
             print(f"The {room.get_name()} is {direction}")
+
+    def set_character(self, character):
+        self.character = character
+        return True
+
+    def get_character(self):
+        return self.character
 
     def move(self, direction):
         if direction in self.linked_rooms:
