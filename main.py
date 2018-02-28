@@ -52,7 +52,7 @@ dead = False
 current_room = kitchen
 current_item = sword
 
-while not dead and Enemy.enemy_count <= 1:
+while not dead and Enemy.enemies_defeated <= 1:
     print("\n")
     # Print out the room details
     current_room.get_details()
@@ -68,6 +68,7 @@ while not dead and Enemy.enemy_count <= 1:
     command = input(">")
     if command in ("north", "south", "east", "west"):
         current_room = current_room.move(command)
+
     # Talk to the inhabitant if they exist in the room
     elif command == "talk":
         inhabitant = current_room.get_character()
@@ -80,11 +81,20 @@ while not dead and Enemy.enemy_count <= 1:
         else:
             print("No one else is here!")
             print("Do you always talk to yourself ??")
+
     elif command == "fight":
         print("What is your weapon of choice ?:")
         fight_with = input(">").lower()
         if fight_with in backpack:
-            if not inhabitant.fight(fight_with):
+            if inhabitant.fight(fight_with):
+                print("Excellent, you won the fight! ")
+                current_room.character = None
+                if inhabitant.get_enemies_defeated() == 2:
+                    print("Looks like you are the victor, more power to you! ")
+                    dead = True
+            else:
+                print("Looks like you lost this fight")
+                print("You are a limp piece of whale blubber!")
                 dead = True
         else:
             print("You don't have {} in your backpack".format(fight_with))
@@ -99,8 +109,12 @@ while not dead and Enemy.enemy_count <= 1:
     elif command == "take":
         item = current_room.get_item()
         if item is not None:
+            print("You put the {} in your backpack".format(item))
             current_room.take_item(item)
             backpack.append(item.get_name())
+            current_room.set_item(None)
+        else:
+            print("There is nothing to take! ")
 
     elif command == "backpack":
         print("You have in your backpack: ")

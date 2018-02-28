@@ -31,7 +31,6 @@ class Room():
         # have to take the item is if exists and add to backpack\
         # And remove it from the room
         if item == self.item:
-            self.item = None
             return True
         else:
             return False
