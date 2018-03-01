@@ -40,12 +40,12 @@ class Room():
         # print( self.name + " linked rooms : " + repr(self.linked_rooms))
 
     def get_details(self):
-        print(f"The {self.get_name()}")
+        print("The {}".format(self.get_name()))
         print("-------------------")
         print(self.get_description())
         for direction in self.linked_rooms:
             room = self.linked_rooms[direction]
-            print(f"The {room.get_name()} is {direction}")
+            print("The {} is {}".format(room.get_name(), direction))
 
     def set_character(self, character):
         self.character = character
